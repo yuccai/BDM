@@ -1,18 +1,25 @@
-BDM
+#BDM
+====
 
-1.Sujet
+##Sujet
+-------
 Création d'un moteur de recherche d'images à partir d'une image. La recherche se spécifie selon les descripteurs.
 
-2.Descripteurs
--histogramme
--filtre moyenneur->Fourier->coupe->reconstitution->filtre de Sobel->boîte englobante->points d'intérêts
-                                                                  -> transformée de Hough
+##Descripteurs
+--------------
 
-3.Similarité
+* histogramme
+* filtre moyenneur -> Fourier -> coupe-> reconstitution -> filtre de Sobel -> boîte englobante -> points d'intérêts
+* filtre moyenneur -> Fourier -> coupe-> reconstitution -> filtre de Sobel -> transformée de Hough
+
+##Similarité
+------------
 TODO
 
-4.Indexation
+##Indexation
+------------
 M-Tree
 
-5.Méthode d'évaluation
+##Méthode d'évaluation
+----------------------
 TODO
