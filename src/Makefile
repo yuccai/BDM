@@ -325,15 +325,18 @@ compiler_clean: compiler_moc_header_clean
 
 ####### Compile
 
-Image.o: Image.cpp Image.h
+Image.o: Image.cpp Image.h \
+		lib/qcustomplot.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o Image.o Image.cpp
 
 main.o: main.cpp Window.h \
-		Image.h
+		Image.h \
+		lib/qcustomplot.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o main.o main.cpp
 
 Window.o: Window.cpp Window.h \
-		Image.h
+		Image.h \
+		lib/qcustomplot.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o Window.o Window.cpp
 
 qcustomplot.o: lib/qcustomplot.cpp lib/qcustomplot.h

@@ -10,6 +10,7 @@
 #include <QObject>
 #include <QTabWidget>
 #include "Image.h"
+#include "lib/qcustomplot.h"
 
 class Window : public QWidget
 {
@@ -21,14 +22,17 @@ class Window : public QWidget
     QListWidget    *m_list_path;
     QPushButton    *m_button_addFile;
     QTabWidget     *m_tabs;
+    QCustomPlot    *m_customPlot;
 
   public:
-    Window();
-    ~Window();
-    void initLayout();
+    Window(void);
+    ~Window(void);
+    void initLayout(void);
+    void initCustomPlot(void);
+    QCustomPlot* getCustomPlot(void);
 
   public slots:
-    void openFile();
+    void openFile(void);
     void displayImage(QListWidgetItem *img);
 };
 

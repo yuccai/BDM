@@ -11,6 +11,8 @@
 #include <QRgb>
 #include <iostream>
 #include <vector>
+#include <QVector>
+#include "lib/qcustomplot.h"
 
 using namespace std;
 
@@ -30,7 +32,8 @@ class Image : public QListWidgetItem
     QString getName(void);
     QString getPath(void);
     QImage getImage(void);
-    vector< vector<int> > historgramme(void);
+    vector< QVector <double>  > histogramme(void);
+    void displayHistogramme(QCustomPlot *customPlot);
 };
 
 #endif
