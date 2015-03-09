@@ -48,11 +48,19 @@ OBJECTS_DIR   = ./
 SOURCES       = Image.cpp \
 		main.cpp \
 		Window.cpp \
-		lib/qcustomplot.cpp moc_qcustomplot.cpp
+		lib/qcustomplot.cpp \
+		Page1.cpp \
+		Page2.cpp \
+		Page3.cpp \
+		Page4.cpp moc_qcustomplot.cpp
 OBJECTS       = Image.o \
 		main.o \
 		Window.o \
 		qcustomplot.o \
+		Page1.o \
+		Page2.o \
+		Page3.o \
+		Page4.o \
 		moc_qcustomplot.o
 DIST          = /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/spec_pre.prf \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/common/shell-unix.conf \
@@ -115,7 +123,11 @@ DIST          = /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/spec_pre.prf \
 		projet_BDM.pro Image.cpp \
 		main.cpp \
 		Window.cpp \
-		lib/qcustomplot.cpp
+		lib/qcustomplot.cpp \
+		Page1.cpp \
+		Page2.cpp \
+		Page3.cpp \
+		Page4.cpp
 QMAKE_TARGET  = projet_BDM
 DESTDIR       = #avoid trailing-slash linebreak
 TARGET        = projet_BDM
@@ -282,7 +294,7 @@ qmake_all: FORCE
 
 dist: 
 	@test -d .tmp/projet_BDM1.0.0 || mkdir -p .tmp/projet_BDM1.0.0
-	$(COPY_FILE) --parents $(DIST) .tmp/projet_BDM1.0.0/ && $(COPY_FILE) --parents Image.h Window.h lib/qcustomplot.h .tmp/projet_BDM1.0.0/ && $(COPY_FILE) --parents Image.cpp main.cpp Window.cpp lib/qcustomplot.cpp .tmp/projet_BDM1.0.0/ && (cd `dirname .tmp/projet_BDM1.0.0` && $(TAR) projet_BDM1.0.0.tar projet_BDM1.0.0 && $(COMPRESS) projet_BDM1.0.0.tar) && $(MOVE) `dirname .tmp/projet_BDM1.0.0`/projet_BDM1.0.0.tar.gz . && $(DEL_FILE) -r .tmp/projet_BDM1.0.0
+	$(COPY_FILE) --parents $(DIST) .tmp/projet_BDM1.0.0/ && $(COPY_FILE) --parents Image.h Window.h lib/qcustomplot.h Page1.h Page2.h Page3.h Page4.h .tmp/projet_BDM1.0.0/ && $(COPY_FILE) --parents Image.cpp main.cpp Window.cpp lib/qcustomplot.cpp Page1.cpp Page2.cpp Page3.cpp Page4.cpp .tmp/projet_BDM1.0.0/ && (cd `dirname .tmp/projet_BDM1.0.0` && $(TAR) projet_BDM1.0.0.tar projet_BDM1.0.0 && $(COMPRESS) projet_BDM1.0.0.tar) && $(MOVE) `dirname .tmp/projet_BDM1.0.0`/projet_BDM1.0.0.tar.gz . && $(DEL_FILE) -r .tmp/projet_BDM1.0.0
 
 
 clean:compiler_clean 
@@ -341,6 +353,18 @@ Window.o: Window.cpp Window.h \
 
 qcustomplot.o: lib/qcustomplot.cpp lib/qcustomplot.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o qcustomplot.o lib/qcustomplot.cpp
+
+Page1.o: Page1.cpp 
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o Page1.o Page1.cpp
+
+Page2.o: Page2.cpp 
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o Page2.o Page2.cpp
+
+Page3.o: Page3.cpp 
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o Page3.o Page3.cpp
+
+Page4.o: Page4.cpp 
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o Page4.o Page4.cpp
 
 moc_qcustomplot.o: moc_qcustomplot.cpp 
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_qcustomplot.o moc_qcustomplot.cpp

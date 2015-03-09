@@ -9,5 +9,5 @@ QT += core gui
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets printsupport
 
 # Input
-HEADERS += Image.h Window.h lib/qcustomplot.h
-SOURCES += Image.cpp main.cpp Window.cpp lib/qcustomplot.cpp
+HEADERS += Image.h Window.h lib/qcustomplot.h Page1.h Page2.h Page3.h Page4.h
+SOURCES += Image.cpp main.cpp Window.cpp lib/qcustomplot.cpp Page1.cpp Page2.cpp Page3.cpp Page4.cpp

@@ -22,6 +22,7 @@ class Image : public QListWidgetItem
     QString m_name;
     QString m_path;
     QImage  m_img;
+    QImage  m_img1;
 
   public:
     Image();
@@ -32,8 +33,9 @@ class Image : public QListWidgetItem
     QString getName(void);
     QString getPath(void);
     QImage getImage(void);
+    QImage getImage1(void);
     vector< QVector <double>  > histogramme(void);
-    void displayHistogramme(QCustomPlot *customPlot);
+    vector< vector <double> > fourier(void);
 };
 
 #endif

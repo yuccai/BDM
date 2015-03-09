@@ -10,7 +10,9 @@
 #include <QObject>
 #include <QTabWidget>
 #include "Image.h"
-#include "lib/qcustomplot.h"
+#include "Page1.h"
+#include "Page2.h"
+#include "Page3.h"
 
 class Window : public QWidget
 {
@@ -18,18 +20,17 @@ class Window : public QWidget
     QHBoxLayout    *m_main_layout;
     QVBoxLayout    *m_left_layout;
     QVBoxLayout    *m_right_layout;
-    QLabel         *m_label_img;
     QListWidget    *m_list_path;
     QPushButton    *m_button_addFile;
     QTabWidget     *m_tabs;
-    QCustomPlot    *m_customPlot;
+    Page1          *m_p1;
+    Page2          *m_p2;
+    Page3          *m_p3;
 
   public:
     Window(void);
     ~Window(void);
     void initLayout(void);
-    void initCustomPlot(void);
-    QCustomPlot* getCustomPlot(void);
 
   public slots:
     void openFile(void);
