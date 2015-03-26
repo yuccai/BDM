@@ -1,5 +1,6 @@
 #include "Window.h"
 #include <QFileDialog>
+#include <QDir>
 #include <iostream>
 
 
@@ -23,9 +24,11 @@ Window::Window() : QWidget()
   m_left_layout->addWidget(m_button_addFile);
   m_right_layout->addWidget(m_tabs);
 
-  m_tabs->addTab(m_p1, "Image de base");
+  m_tabs->addTab(m_p1, "Image originale");
   m_tabs->addTab(m_p2, "Histogramme");
-  m_tabs->addTab(m_p3, "Image 1");
+  m_tabs->addTab(m_p3, "Image modifiée");
+
+  openFile();
 
   setWindowTitle("Projet Banque de données multimédia");
   show();
@@ -56,10 +59,13 @@ void Window::initLayout(void)
 
 void Window::openFile(void)
 {
-  QStringList files = QFileDialog::getOpenFileNames(this, "Ouvrir un fichier", QString(), "Images (*.png *.gif *.jpg *.jpeg)");
+  //QStringList files = QFileDialog::getOpenFileNames(this, "Ouvrir un fichier", QString(), "Images (*.png *.gif *.jpg *.jpeg)");
+  QStringList files = QDir("img").entryList();
+  QString path = QDir("img").absolutePath();
 
   foreach(QString file, files)
   {
+    file = path + "/" +  file;
     Image *it = new Image();
     it->setName(file.split("/").last());
     it->setPath(file);

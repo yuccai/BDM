@@ -18,7 +18,7 @@ CXXFLAGS      = -m64 -pipe -O2 -Wall -W -D_REENTRANT -fPIE $(DEFINES)
 INCPATH       = -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++-64 -I. -I. -Ilib -isystem /usr/include/x86_64-linux-gnu/qt5 -isystem /usr/include/x86_64-linux-gnu/qt5/QtPrintSupport -isystem /usr/include/x86_64-linux-gnu/qt5/QtWidgets -isystem /usr/include/x86_64-linux-gnu/qt5/QtGui -isystem /usr/include/x86_64-linux-gnu/qt5/QtCore -I.
 LINK          = g++
 LFLAGS        = -m64 -Wl,-O1
-LIBS          = $(SUBLIBS) -L/usr/X11R6/lib64 -lQt5PrintSupport -L/usr/lib/x86_64-linux-gnu -lQt5Widgets -lQt5Gui -lQt5Core -lGL -lpthread 
+LIBS          = $(SUBLIBS) -L/usr/X11R6/lib64 -lfftw3 -lQt5PrintSupport -L/usr/lib/x86_64-linux-gnu -lQt5Widgets -lQt5Gui -lQt5Core -lGL -lpthread 
 AR            = ar cqs
 RANLIB        = 
 QMAKE         = /usr/lib/x86_64-linux-gnu/qt5/bin/qmake
@@ -45,22 +45,26 @@ OBJECTS_DIR   = ./
 
 ####### Files
 
-SOURCES       = Image.cpp \
+SOURCES       = Fourier.cpp \
+		Histogram.cpp \
+		Image.cpp \
 		main.cpp \
-		Window.cpp \
-		lib/qcustomplot.cpp \
 		Page1.cpp \
 		Page2.cpp \
 		Page3.cpp \
-		Page4.cpp moc_qcustomplot.cpp
-OBJECTS       = Image.o \
+		Page4.cpp \
+		Window.cpp \
+		lib/qcustomplot.cpp moc_qcustomplot.cpp
+OBJECTS       = Fourier.o \
+		Histogram.o \
+		Image.o \
 		main.o \
-		Window.o \
-		qcustomplot.o \
 		Page1.o \
 		Page2.o \
 		Page3.o \
 		Page4.o \
+		Window.o \
+		qcustomplot.o \
 		moc_qcustomplot.o
 DIST          = /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/spec_pre.prf \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/common/shell-unix.conf \
@@ -120,14 +124,16 @@ DIST          = /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/spec_pre.prf \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/exceptions.prf \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/yacc.prf \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/lex.prf \
-		projet_BDM.pro Image.cpp \
+		projet_BDM.pro Fourier.cpp \
+		Histogram.cpp \
+		Image.cpp \
 		main.cpp \
-		Window.cpp \
-		lib/qcustomplot.cpp \
 		Page1.cpp \
 		Page2.cpp \
 		Page3.cpp \
-		Page4.cpp
+		Page4.cpp \
+		Window.cpp \
+		lib/qcustomplot.cpp
 QMAKE_TARGET  = projet_BDM
 DESTDIR       = #avoid trailing-slash linebreak
 TARGET        = projet_BDM
@@ -294,7 +300,7 @@ qmake_all: FORCE
 
 dist: 
 	@test -d .tmp/projet_BDM1.0.0 || mkdir -p .tmp/projet_BDM1.0.0
-	$(COPY_FILE) --parents $(DIST) .tmp/projet_BDM1.0.0/ && $(COPY_FILE) --parents Image.h Window.h lib/qcustomplot.h Page1.h Page2.h Page3.h Page4.h .tmp/projet_BDM1.0.0/ && $(COPY_FILE) --parents Image.cpp main.cpp Window.cpp lib/qcustomplot.cpp Page1.cpp Page2.cpp Page3.cpp Page4.cpp .tmp/projet_BDM1.0.0/ && (cd `dirname .tmp/projet_BDM1.0.0` && $(TAR) projet_BDM1.0.0.tar projet_BDM1.0.0 && $(COMPRESS) projet_BDM1.0.0.tar) && $(MOVE) `dirname .tmp/projet_BDM1.0.0`/projet_BDM1.0.0.tar.gz . && $(DEL_FILE) -r .tmp/projet_BDM1.0.0
+	$(COPY_FILE) --parents $(DIST) .tmp/projet_BDM1.0.0/ && $(COPY_FILE) --parents Fourier.h Histogram.h Image.h Page1.h Page2.h Page3.h Page4.h Window.h lib/qcustomplot.h .tmp/projet_BDM1.0.0/ && $(COPY_FILE) --parents Fourier.cpp Histogram.cpp Image.cpp main.cpp Page1.cpp Page2.cpp Page3.cpp Page4.cpp Window.cpp lib/qcustomplot.cpp .tmp/projet_BDM1.0.0/ && (cd `dirname .tmp/projet_BDM1.0.0` && $(TAR) projet_BDM1.0.0.tar projet_BDM1.0.0 && $(COMPRESS) projet_BDM1.0.0.tar) && $(MOVE) `dirname .tmp/projet_BDM1.0.0`/projet_BDM1.0.0.tar.gz . && $(DEL_FILE) -r .tmp/projet_BDM1.0.0
 
 
 clean:compiler_clean 
@@ -337,34 +343,64 @@ compiler_clean: compiler_moc_header_clean
 
 ####### Compile
 
+Fourier.o: Fourier.cpp Fourier.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o Fourier.o Fourier.cpp
+
+Histogram.o: Histogram.cpp Histogram.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o Histogram.o Histogram.cpp
+
 Image.o: Image.cpp Image.h \
-		lib/qcustomplot.h
+		lib/qcustomplot.h \
+		Fourier.h \
+		Histogram.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o Image.o Image.cpp
 
 main.o: main.cpp Window.h \
 		Image.h \
-		lib/qcustomplot.h
+		lib/qcustomplot.h \
+		Fourier.h \
+		Histogram.h \
+		Page1.h \
+		Page2.h \
+		Page3.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o main.o main.cpp
 
-Window.o: Window.cpp Window.h \
+Page1.o: Page1.cpp Page1.h \
 		Image.h \
-		lib/qcustomplot.h
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o Window.o Window.cpp
-
-qcustomplot.o: lib/qcustomplot.cpp lib/qcustomplot.h
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o qcustomplot.o lib/qcustomplot.cpp
-
-Page1.o: Page1.cpp 
+		lib/qcustomplot.h \
+		Fourier.h \
+		Histogram.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o Page1.o Page1.cpp
 
-Page2.o: Page2.cpp 
+Page2.o: Page2.cpp Page2.h \
+		Image.h \
+		lib/qcustomplot.h \
+		Fourier.h \
+		Histogram.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o Page2.o Page2.cpp
 
-Page3.o: Page3.cpp 
+Page3.o: Page3.cpp Page3.h \
+		Image.h \
+		lib/qcustomplot.h \
+		Fourier.h \
+		Histogram.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o Page3.o Page3.cpp
 
 Page4.o: Page4.cpp 
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o Page4.o Page4.cpp
+
+Window.o: Window.cpp Window.h \
+		Image.h \
+		lib/qcustomplot.h \
+		Fourier.h \
+		Histogram.h \
+		Page1.h \
+		Page2.h \
+		Page3.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o Window.o Window.cpp
+
+qcustomplot.o: lib/qcustomplot.cpp lib/qcustomplot.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o qcustomplot.o lib/qcustomplot.cpp
 
 moc_qcustomplot.o: moc_qcustomplot.cpp 
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_qcustomplot.o moc_qcustomplot.cpp

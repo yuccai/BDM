@@ -1,5 +1,4 @@
 #include "Image.h"
-#include <math>
 
 Image::Image() : QListWidgetItem()
 {
@@ -21,8 +20,10 @@ void Image::setPath(const QString str)
 
 void Image::loadImage(const QString str)
 {
-  m_img.load(str);
-  m_img1.load(str);
+  m_img_original.load(str);
+  m_img_modified.load(str);
+  //m_img_modified = m_img_modified.scaledToHeight(100);
+  m_histogram.compute(m_img_modified);
 }
 
 QString Image::getName(void)
@@ -35,55 +36,39 @@ QString Image::getPath(void)
   return m_path;
 }
 
-QImage Image::getImage(void)
+QImage Image::getImageOriginal(void)
 {
-  return m_img;
+  return m_img_original;
 }
 
-QImage Image::getImage1(void)
+QImage Image::getImageModified(void)
 {
-  return m_img1;
+  return m_img_modified;
 }
 
-vector< QVector<double> > Image::histogramme(void)
+Histogram Image::getHistogram()
 {
-  vector< QVector <double> > h;
-  QRgb p;
+  return m_histogram;
+}
 
-  for(int i=0; i<3; i++)
-    h.push_back(QVector<double>(256,0));
+void Image::applyFourier()
+{
+  QVector < QVector <double> > real;
+  QColor c;
+  m_fourier.compute(m_img_modified);
+  int h = m_img_modified.height(),
+      w = m_img_modified.width();
 
-  for(int i = 0; i<m_img.height(); i++)
+  real = m_fourier.getReal();
+
+  for(int y=0; y<h; y++)
   {
-    for(int j = 0; j<m_img.width(); j++)
+    for(int x=0; x<w; x++)
     {
-      p = m_img.pixel(j,i);
-      h[0][qRed(p)]+=1;
-      h[1][qGreen(p)]+=1;
-      h[2][qBlue(p)]+=1;
+      if(real[y][x] < 255){
+        c.setRgb(real[y][x],real[y][x],real[y][x]);
+        m_img_modified.setPixel((x+w/2)%w,(y+h/2)%h,c.rgb());
+      }
     }
   }
-
-  for(int i=0; i<3; i++){
-    for(int j=0; j<256; j++){
-      h[i][j] = h[i][j]/(m_img.height()*m_img.width());
-    }
-  }
-  return h;
-}
-
-vector<double> Image::fourier(void)
-{
-  vector< <vector < vector <double> > > f;
-  f.push_back(vector<
-  for(int i = 0 ; i<m_img.height(); i++)
-  {
-    f[0].push_back(vector<double>(m_img.width(),0);
-    f[1].push_back(vector<double>(m_img.width(),0);
-    f[2].push_back(vector<double>(m_img.width(),0);
-    for(int j = 0; j<m_img.width(); j++)
-    {
-    }
-  }
-  return f;
 }

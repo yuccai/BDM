@@ -7,7 +7,26 @@ TARGET = projet_BDM
 INCLUDEPATH += . lib
 QT += core gui
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets printsupport
+LIBS += -lfftw3
+
 
 # Input
-HEADERS += Image.h Window.h lib/qcustomplot.h Page1.h Page2.h Page3.h Page4.h
-SOURCES += Image.cpp main.cpp Window.cpp lib/qcustomplot.cpp Page1.cpp Page2.cpp Page3.cpp Page4.cpp
+HEADERS += Fourier.h \
+           Histogram.h \
+           Image.h \
+           Page1.h \
+           Page2.h \
+           Page3.h \
+           Page4.h \
+           Window.h \
+           lib/qcustomplot.h
+SOURCES += Fourier.cpp \
+           Histogram.cpp \
+           Image.cpp \
+           main.cpp \
+           Page1.cpp \
+           Page2.cpp \
+           Page3.cpp \
+           Page4.cpp \
+           Window.cpp \
+           lib/qcustomplot.cpp

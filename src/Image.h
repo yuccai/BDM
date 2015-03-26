@@ -13,29 +13,35 @@
 #include <vector>
 #include <QVector>
 #include "lib/qcustomplot.h"
+#include "Fourier.h"
+#include "Histogram.h"
+
 
 using namespace std;
 
 class Image : public QListWidgetItem
 {
   private:
-    QString m_name;
-    QString m_path;
-    QImage  m_img;
-    QImage  m_img1;
+    QString   m_name;
+    QString   m_path;
+    QImage    m_img_original;
+    QImage    m_img_modified;
+    Histogram m_histogram;
+    Fourier   m_fourier;
 
   public:
     Image();
     ~Image();
     void setName(const QString str);
     void setPath(const QString str);
+    Histogram getHistogram(void);
     void loadImage(const QString str);
     QString getName(void);
     QString getPath(void);
-    QImage getImage(void);
-    QImage getImage1(void);
-    vector< QVector <double>  > histogramme(void);
-    vector< vector <double> > fourier(void);
+    QImage getImageOriginal(void);
+    QImage getImageModified(void);
+    void applyFourier(void);
 };
+
 
 #endif
