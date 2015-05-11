@@ -23,8 +23,6 @@ Page2::~Page2(void)
 
 void Page2::initCustomPlot(void)
 {
-  m_customPlot = new QCustomPlot();
-
   //create empty bar chart objects:
   QCPBars *r_histo = new QCPBars(m_customPlot->xAxis, m_customPlot->yAxis);
   QCPBars *g_histo = new QCPBars(m_customPlot->xAxis, m_customPlot->yAxis);

@@ -4,7 +4,7 @@
 #include <QLabel>
 #include <QLayout>
 #include "Image.h"
-#include "lib/qcustomplot.h"
+#include "lib/qcustomplot/qcustomplot.h"
 
 class Page2 : public QLabel
 {
