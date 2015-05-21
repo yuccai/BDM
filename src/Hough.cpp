@@ -6,21 +6,28 @@ Hough::Hough() : QDialog()
   m_customPlot = new QCustomPlot();
   m_button_find_lines = new QPushButton("Trouver les lignes");
   m_layout = new QVBoxLayout();
-  m_layout_spin_box = new QHBoxLayout();
-  m_epsilon_rho = new QSpinBox();
-  m_epsilon_theta = new QSpinBox();
+  m_layout_spin_box = new QFormLayout();
+  m_label_spin_box = new QLabel();
+  m_epsilon_rho = new QDoubleSpinBox();
+  m_epsilon_theta = new QDoubleSpinBox();
   m_nbPointsPerLine = new QSpinBox();
 
   this->setLayout(m_layout);
   m_layout->addWidget(m_customPlot);
-  m_layout->addItem(m_layout_spin_box);
+  m_layout->addWidget(m_label_spin_box);
   m_layout->addWidget(m_button_find_lines);
-  m_layout_spin_box->addWidget(m_epsilon_rho);
-  m_layout_spin_box->addWidget(m_epsilon_theta);
-  m_layout_spin_box->addWidget(m_nbPointsPerLine);
+  m_label_spin_box->setLayout(m_layout_spin_box);
+  m_layout_spin_box->addRow("delta rho",m_epsilon_rho);
+  m_layout_spin_box->addRow("delta theta",m_epsilon_theta);
+  m_layout_spin_box->addRow("nombre de points par ligne",m_nbPointsPerLine);
   m_epsilon_theta->setValue(0.1);
+  m_epsilon_theta->setRange(0,5);
+  m_epsilon_theta->setSingleStep(0.1);
   m_epsilon_rho->setValue(1);
+  m_epsilon_rho->setRange(0,5);
+  m_epsilon_rho->setSingleStep(0.1);
   m_nbPointsPerLine->setValue(50);
+  m_nbPointsPerLine->setRange(0,500);
 
 
   initCustomPlot();
@@ -36,10 +43,11 @@ Hough::~Hough()
 {
   delete(m_nbPointsPerLine);
   delete(m_epsilon_theta);
-  delete(m_epsilon_theta);
-  delete(m_customPlot);
-  delete(m_button_find_lines);
+  delete(m_epsilon_rho);
   delete(m_layout_spin_box);
+  delete(m_label_spin_box);
+  delete(m_button_find_lines);
+  delete(m_customPlot);
   delete(m_layout);
 }
 
@@ -118,16 +126,10 @@ void Hough::findLines()
   int nbPointsperLine, c;
 
   i=0;
-  /*
   epsilon = m_epsilon_theta->value();
   e_theta = m_epsilon_theta->value();
   e_rho = m_epsilon_rho->value();
   nbPointsperLine = m_nbPointsPerLine->value();
-  */
-  epsilon = 0.1;
-  e_theta = 2;
-  e_rho = 2;
-  nbPointsperLine = 25;
   m_lines.clear();
 
   for(i=0; i<m_nbPoints; i++)
@@ -264,7 +266,7 @@ void Hough::applyHough(QImage* img)
       x2 = -b/a;
       y2 = 0;
     }
-    std::cout << "rho : " << p.y() << " theta " << p.x()*180/M_PI << "a : " << a << " b : " << b << "("<<x1<<","<<y1<<") ("<<x2<<","<<y2<<")"<<std::endl;
+    //std::cout << "rho : " << p.y() << " theta " << p.x()*180/M_PI << "a : " << a << " b : " << b << "("<<x1<<","<<y1<<") ("<<x2<<","<<y2<<")"<<std::endl;
     bresenham(img,x1,y1,x2,y2,QColor::fromRgb(0,0,255));
   }
 }

@@ -1,5 +1,5 @@
 allocate.o: allocate.c /usr/include/stdc-predef.h bench.h bench-user.h \
- ../config.h /usr/lib/gcc/x86_64-linux-gnu/4.9/include/stddef.h \
+ ../config.h /usr/lib/gcc/x86_64-linux-gnu/4.8/include/stddef.h \
  /usr/include/stdlib.h /usr/include/features.h \
  /usr/include/x86_64-linux-gnu/sys/cdefs.h \
  /usr/include/x86_64-linux-gnu/bits/wordsize.h \
@@ -32,7 +32,7 @@ bench-user.h:
 
 ../config.h:
 
-/usr/lib/gcc/x86_64-linux-gnu/4.9/include/stddef.h:
+/usr/lib/gcc/x86_64-linux-gnu/4.8/include/stddef.h:
 
 /usr/include/stdlib.h:
 

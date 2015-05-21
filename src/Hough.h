@@ -9,7 +9,7 @@
 #include <QList>
 #include <QPoint>
 #include <QPushButton>
-#include <QSpinBox>
+#include <QDoubleSpinBox>
 #include <QImage>
 
 class Hough : public QDialog
@@ -17,15 +17,16 @@ class Hough : public QDialog
   private:
     QCustomPlot                 *m_customPlot;
     QVBoxLayout                 *m_layout;
-    QHBoxLayout                 *m_layout_spin_box;
+    QFormLayout                 *m_layout_spin_box;
     QPushButton                 *m_button_find_lines;
+    QLabel                      *m_label_spin_box;
     QVector< QVector <double> >  m_datas;
     QVector <double>             m_ticks;
     int                          m_nbPoints;
     int                          m_step;
     QList <QPointF>              m_lines;
-    QSpinBox                    *m_epsilon_theta;
-    QSpinBox                    *m_epsilon_rho;
+    QDoubleSpinBox              *m_epsilon_theta;
+    QDoubleSpinBox              *m_epsilon_rho;
     QSpinBox                    *m_nbPointsPerLine;
 
   public:
