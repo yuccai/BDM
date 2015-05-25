@@ -52,7 +52,6 @@ void Page2::initCustomPlot(void)
   m_customPlot->xAxis->setSubTickCount(0);
   m_customPlot->xAxis->setTickLength(0, 2);
   m_customPlot->xAxis->grid()->setVisible(true);
-  m_customPlot->xAxis->setRange(-10, 265);
 
   //prepare y axis:
   m_customPlot->yAxis->setAutoTicks(true);
@@ -79,10 +78,13 @@ void Page2::display(Image img)
 {
   //Add data:
   Histogram h = img.getHistogram();
+  h.compute(img.getImageOriginal());
   QCPBars* h_histo[3];
 
+  m_customPlot->xAxis->setRange(-1, h.getHistoSize()+1);
+
   QVector<double>  ticks;
-  for(int i=0; i<256; i++)
+  for(int i=0; i<h.getHistoSize(); i++)
     ticks << i;
   for(int i=0; i<3; i++)
     h_histo[i] = dynamic_cast<QCPBars*>(m_customPlot->plottable(i));
@@ -101,5 +103,4 @@ void Page2::toggleBarChart(QCPLegend *l, QCPAbstractLegendItem *i, QMouseEvent *
   it = dynamic_cast<QCPPlottableLegendItem*>(i);
   b_clicked = dynamic_cast<QCPBars*> (it->plottable());
   b_clicked->setVisible(!b_clicked->visible());
-
 }

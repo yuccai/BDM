@@ -31,7 +31,7 @@ void Image::loadImage(const QString str)
       m_img_modified.setPixel(j,i,QColor::fromRgb(c,c,c).rgb());
     }
   }
-  m_histogram.compute(m_img_modified);
+  //m_histogram.compute(m_img_modified);
 }
 
 QString Image::getName(void)
