@@ -27,9 +27,11 @@ void Page2::initCustomPlot(void)
   QCPBars *r_histo = new QCPBars(m_customPlot->xAxis, m_customPlot->yAxis);
   QCPBars *g_histo = new QCPBars(m_customPlot->xAxis, m_customPlot->yAxis);
   QCPBars *b_histo = new QCPBars(m_customPlot->xAxis, m_customPlot->yAxis);
+  QCPBars *c_histo = new QCPBars(m_customPlot->xAxis, m_customPlot->yAxis);
   m_customPlot->addPlottable(r_histo);
   m_customPlot->addPlottable(g_histo);
   m_customPlot->addPlottable(b_histo);
+  m_customPlot->addPlottable(c_histo);
   // set names and colors:
   QPen pen;
   pen.setWidthF(1.2);
@@ -45,6 +47,10 @@ void Page2::initCustomPlot(void)
   b_histo->setName("Blue");
   b_histo->setPen(pen);
   b_histo->setBrush(QColor(1, 92, 191, 50));
+  pen.setColor(QColor(255, 215, 0));
+  c_histo->setName("All Colors");
+  c_histo->setPen(pen);
+  c_histo->setBrush(QColor(255, 215, 0, 50));
 
   // prepare x axis with country labels:
   m_customPlot->xAxis->setAutoTicks(true);
@@ -79,19 +85,26 @@ void Page2::display(Image img)
   //Add data:
   Histogram h = img.getHistogram();
   h.compute(img.getImageOriginal());
-  QCPBars* h_histo[3];
+  QCPBars* h_histo[4];
 
-  m_customPlot->xAxis->setRange(-1, h.getHistoSize()+1);
+  m_customPlot->xAxis->setRange(-1, h.getHistoSize());
 
   QVector<double>  ticks;
   for(int i=0; i<h.getHistoSize(); i++)
     ticks << i;
-  for(int i=0; i<3; i++)
+  for(int i=0; i<4; i++)
     h_histo[i] = dynamic_cast<QCPBars*>(m_customPlot->plottable(i));
 
   h_histo[0]->setData(ticks, h.getRedPix());
   h_histo[1]->setData(ticks, h.getGreenPix());
   h_histo[2]->setData(ticks, h.getBluePix());
+  h_histo[3]->setData(ticks, h.getColorPix());
+
+  h_histo[0]->setVisible(false);
+  h_histo[1]->setVisible(false);
+  h_histo[2]->setVisible(false);
+
+
   m_customPlot->replot();
 }
 
@@ -103,4 +116,5 @@ void Page2::toggleBarChart(QCPLegend *l, QCPAbstractLegendItem *i, QMouseEvent *
   it = dynamic_cast<QCPPlottableLegendItem*>(i);
   b_clicked = dynamic_cast<QCPBars*> (it->plottable());
   b_clicked->setVisible(!b_clicked->visible());
+  m_customPlot->replot();
 }
