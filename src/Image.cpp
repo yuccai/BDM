@@ -160,6 +160,7 @@ void Image::applyNegative(void)
 
 QList <QPoint> Image::applyInterestPoints()
 {
-  return m_filter.findHoughPoints(m_img_modified);
+  //return m_filter.findHoughPoints(m_img_modified);
+  return m_filter.findInterestPoints(m_img_modified);
 }
 

@@ -20,13 +20,13 @@ Hough::Hough() : QDialog()
   m_layout_spin_box->addRow("delta rho",m_epsilon_rho);
   m_layout_spin_box->addRow("delta theta",m_epsilon_theta);
   m_layout_spin_box->addRow("nombre de points par ligne",m_nbPointsPerLine);
-  m_epsilon_theta->setValue(0.1);
+  m_epsilon_theta->setValue(0.12);
   m_epsilon_theta->setRange(0,5);
   m_epsilon_theta->setSingleStep(0.1);
-  m_epsilon_rho->setValue(1);
+  m_epsilon_rho->setValue(2);
   m_epsilon_rho->setRange(0,5);
   m_epsilon_rho->setSingleStep(0.1);
-  m_nbPointsPerLine->setValue(50);
+  m_nbPointsPerLine->setValue(25);
   m_nbPointsPerLine->setRange(0,500);
 
 

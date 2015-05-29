@@ -170,11 +170,13 @@ void Page3::displayInterestPoints(bool b)
     QList <QPoint> l = m_selected_img.applyInterestPoints();
     foreach(QPoint p, l)
     {
+      /*
       for(int i=-1; i<3; i++)
         for(int j=-1; j<3; j++)
           if( (j+p.x()) >=0 && (j+p.x()) < img.width() && (i+p.y()) >=0 && (i+p.y()) < img.height())
             img.setPixel(j+p.x(),i+p.y(),QColor::fromRgb(255,0,0).rgb());
-        //img.setPixel(p.x(),p.y(),QColor::fromRgb(255,0,0).rgb());
+            */
+        img.setPixel(p.x(),p.y(),QColor::fromRgb(255,0,0).rgb());
     }
     m_label_img->setPixmap(QPixmap::fromImage(img.scaled(640,480)));
   }

@@ -5,14 +5,11 @@
 
 Histogram::Histogram()
 {
-  m_histoSize = 10;
+  m_histoSize = 64;
   m_redPix.resize(m_histoSize);
   m_greenPix.resize(m_histoSize);
   m_bluePix.resize(m_histoSize);
   m_colorPix.resize(m_histoSize);
-  m_redPix.fill(0);
-  m_greenPix.fill(0);
-  m_bluePix.fill(0);
 }
 
 Histogram::~Histogram()
@@ -40,6 +37,11 @@ void Histogram::compute(QImage img)
   double hw = h*w;
 
   int jaune = 0;
+
+  m_redPix.fill(0);
+  m_greenPix.fill(0);
+  m_bluePix.fill(0);
+  m_colorPix.fill(0);
 
   for(int i = 0; i<h; i++)
   {
@@ -115,7 +117,6 @@ void Histogram::compute(QImage img)
     std::cout << col[i].val << "->" << col[i].col << std::endl;
   }
   */
-  std::cout << 100*jaune / hw << std::endl;
-
+  //std::cout << 100*jaune / hw << std::endl;
 }
 
