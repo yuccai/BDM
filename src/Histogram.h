@@ -24,8 +24,10 @@ class Histogram
     QVector <double> getGreenPix(void) { return m_greenPix; };
     QVector <double> getBluePix(void) { return m_bluePix; };
     QVector <double> getColorPix(void) { return m_colorPix; };
+    QList <int>      getColors(void) {return m_colors; };
     void compute(QImage img);
     int getHistoSize(void) { return m_histoSize; };
+    void rgb2luv(QRgb p, double *l, double *u, double *v);
 };
 
 #endif

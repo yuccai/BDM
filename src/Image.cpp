@@ -25,6 +25,7 @@ void Image::loadImage(const QString str)
   m_img_modified.load(str);
   //if(m_img_modified.height() > 500)
   m_img_modified = m_img_modified.scaledToHeight(400);
+  m_img_original = m_img_original.scaledToHeight(400);
   for(int i =0; i< m_img_modified.height(); i++){
     for(int j=0; j< m_img_modified.width(); j++){
       c = qGray(m_img_modified.pixel(j,i));

@@ -11,7 +11,7 @@ Window::Window() : QMainWindow()
   m_button_newSearch = new QPushButton("Nouvelle recherche");
   m_dockWidget = new QDockWidget("Fichiers", this);
   m_toolBar = new QToolBar("Outils",this);
-  m_searchWindow = new SearchWindow();
+  m_searchWindow = new SearchWindow(&m_list_image);
   m_p1 = new Page1();
   m_p2 = new Page2();
   m_p3 = new Page3();
@@ -72,6 +72,7 @@ void Window::openFile(void)
     it->setPath(file);
     it->setText(it->getName());
     it->loadImage(file);
+    m_list_image << it;
     m_list_path->insertItem(0,it);
     if(file == files.first())
       displayImage(it);

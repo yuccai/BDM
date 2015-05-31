@@ -22,6 +22,7 @@ class Window : public QMainWindow
 {
   private:
     QListWidget    *m_list_path;
+    QList <Image*>  m_list_image;
     QPushButton    *m_button_addFile;
     QPushButton    *m_button_newSearch;
     QTabWidget     *m_tabs;
