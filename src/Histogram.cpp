@@ -76,7 +76,7 @@ void Histogram::compute(QImage img)
         increasing = true;
       else
         increasing = false;
-      if(oldincreasing==true && increasing==false && m_colorPix[i] > 0.00)
+      if(oldincreasing==true && increasing==false && m_colorPix[i-1] > 0.00)
         m_colors << (i-1);
       oldincreasing = increasing;
     }

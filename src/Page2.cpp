@@ -36,15 +36,15 @@ void Page2::initCustomPlot(void)
   QPen pen;
   pen.setWidthF(1.2);
   pen.setColor(QColor(255, 131, 0));
-  r_histo->setName("Red");
+  r_histo->setName("L");
   r_histo->setPen(pen);
   r_histo->setBrush(QColor(255, 131, 0, 50));
   pen.setColor(QColor(150, 222, 0));
-  g_histo->setName("Green");
+  g_histo->setName("U");
   g_histo->setPen(pen);
   g_histo->setBrush(QColor(150, 222, 0, 70));
   pen.setColor(QColor(1, 92, 191));
-  b_histo->setName("Blue");
+  b_histo->setName("V");
   b_histo->setPen(pen);
   b_histo->setBrush(QColor(1, 92, 191, 50));
   pen.setColor(QColor(255, 215, 0));

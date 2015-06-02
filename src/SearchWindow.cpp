@@ -50,6 +50,7 @@ void SearchWindow::loadListImage()
   QList <int> cols;
   int l,i;
 
+  m_res.clear();
   h = m_searchImg->getHistogram();
   h.compute(m_searchImg->getImageOriginal());
   cols = h.getColors();
