@@ -27,7 +27,7 @@ Création d'un moteur de recherche d'images à partir d'une image. La recherche 
 -----------
 Au lancement de l'interface, le dossier /src/img est chargé. On voit apparaître le nom des images chargées dans le dock à gauche. Le bouton `Ajouter un ficher` en haut rajoute les mêmes
 images, il faut décommenter une partie du code pour charger les images manuellement mais le dossier /src/img ne sera plus chargé au démarrage. On peut ajouter manuellement les images  en
-les plaçant dans le dossier /src/img et relancer l'appliction.
+les plaçant dans le dossier /src/img et relancer l'application.
 
 Au centre de l'application se situent trois onglets :
    1. Le premier permet de visualiser l'image originale mais redimensionnée avec une hauteur de 400 pixels tout en conservant le ratio. Cela permet de ne pas avoir trop de calculs pour
@@ -60,7 +60,7 @@ La similarité s'effectue uniquement grâce aux informations colorimétriques.
 
 Dans un premier temps, on détecte les pics croissants de l'histogramme des composantes LUV dans la base 354. La même opération est effectuée sur les autres images. Puis on parcours
 les images en comparant les valeurs des pics. Si un des pics coïncide, le chemin de l'image est affiché dans la console. Cette méthode n'est pas la plus optimale mais toutes les
-images ayant une zone de couleur communes seront associées.
+images ayant une zone de couleur commune seront associées.
 
 ##Indexation
 ------------
